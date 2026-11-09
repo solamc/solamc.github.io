@@ -1,0 +1,16 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>Threads 인증 코드</title>
+<style>body{font:16px/1.6 -apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;max-width:720px;margin:40px auto;padding:0 16px;color:#1a202c}
+code{display:block;word-break:break-all;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:14px;font-size:14px;margin:12px 0}
+button{font:inherit;padding:10px 16px;border-radius:8px;border:1px solid #cbd5e1;background:#fff;cursor:pointer}.ok{color:#15803d}.err{color:#b91c1c}</style></head>
+<body><h2>Threads 인증 코드</h2><p id="msg">주소에서 코드를 읽는 중…</p><code id="code"></code>
+<button id="copy" style="display:none">코드 복사</button>
+<p style="color:#64748b;font-size:14px">이 코드를 그대로 클로이에게 보내주세요(1시간 안에만 유효). 이 페이지는 아무것도 저장하거나 전송하지 않습니다.</p>
+<script>
+const p=new URLSearchParams(location.search);const c=p.get('code');const e=p.get('error')||p.get('error_reason');
+const msg=document.getElementById('msg'),box=document.getElementById('code'),btn=document.getElementById('copy');
+if(c){msg.textContent='인증 성공 — 아래 코드를 복사해 클로이에게 보내주세요.';msg.className='ok';box.textContent=c.replace(/#_?$/,'');btn.style.display='inline-block';
+btn.onclick=()=>{navigator.clipboard.writeText(box.textContent).then(()=>{btn.textContent='복사됨 ✓';});};}
+else if(e){msg.textContent='인증이 취소되었거나 실패했습니다: '+e+' '+(p.get('error_description')||'');msg.className='err';}
+else{msg.textContent='코드가 없습니다. 클로이가 준 인증 링크로 다시 들어와 주세요.';}
+</script></body></html>
